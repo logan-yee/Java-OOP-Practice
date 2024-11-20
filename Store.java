@@ -26,7 +26,7 @@ public class Store {
         } else {
             System.out.println("Receipts for " + name);
             for (Receipt receipt : receipts) {
-                System.out.print(receipt);
+                receipt.printReceipt();
             }
         }
     }

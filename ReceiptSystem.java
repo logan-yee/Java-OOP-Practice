@@ -21,9 +21,12 @@ public class ReceiptSystem {
             System.out.println("3. Generate Reports");
             System.out.println("4. Exit");
             System.out.print("Enter your choice: ");
-            int choice = scanner.nextInt();
+            String choice = scanner.next();
 
-            switch (choice) {
+            //Clean input with error handling utility class
+            int cleanChoice = InputCleaner.cleanToIntegers(choice);
+
+            switch (cleanChoice) {
                 case 1:
                     // Add a receipt
                     Receipt receipt = new Receipt();
@@ -53,18 +56,27 @@ public class ReceiptSystem {
                     while (true) {
                         System.out.println("Enter item name (or 'done' to finish): ");
                         String itemName = scanner.next();
-                        if (itemName.equals("done")) {
+                        if (itemName.equalsIgnoreCase("done")) {
                             break;
                         }
                         System.out.println("Enter item price: ");
-                        double price = scanner.nextDouble();
+                        String priceInput = scanner.next();
+
+                        //Error handling
+                        double price = InputCleaner.cleanToDouble(priceInput);
+
                         System.out.println("Enter item quantity: ");
-                        int quantity = scanner.nextInt();
+                        String itemInput = scanner.next();
+
+                        //Error handling
+                        int quantity = InputCleaner.cleanToIntegers(itemInput);
+
                         Item item = new Item(itemName, price, quantity);
                         receipt.addItem(item);
                     }
 
-
+//                    System.out.println("Enter payment type: ");
+//                    int paymentChoice = scanner.nextInt();
 
                     // Calculate total and add receipt to lists
                     receipt.calculateTotal();
@@ -80,9 +92,12 @@ public class ReceiptSystem {
                     System.out.println("1. Customer");
                     System.out.println("2. Store");
                     System.out.print("Enter your choice: ");
-                    int viewChoice = scanner.nextInt();
+                    String viewChoice = scanner.next();
 
-                    if (viewChoice == 1) {
+                    //Error handling
+                    int cleanViewChoice = InputCleaner.cleanToIntegers(viewChoice);
+
+                    if (cleanViewChoice == 1) {
                         System.out.print("Enter customer name: ");
                         String customerNameToView = scanner.next();
                         Customer customerToView = findCustomerByName(customers, customerNameToView);
@@ -91,7 +106,7 @@ public class ReceiptSystem {
                         } else {
                             System.out.println("Customer not found.");
                         }
-                    } else if (viewChoice == 2) {
+                    } else if (cleanViewChoice == 2) {
                         System.out.print("Enter store name: ");
                         String storeNameToView = scanner.next();
                         Store storeToView = findStoreByName(stores, storeNameToView);
@@ -113,6 +128,8 @@ public class ReceiptSystem {
                     // Exit
                     System.out.println("Exiting...");
                     System.exit(0);
+                default:
+                    System.out.println("An error occured, please try again");
             }
         }
     }
@@ -136,7 +153,4 @@ public class ReceiptSystem {
         return null;
     }
 
-    private static void generateReports(ArrayList<Receipt> receipts) {
-
-    }
 }

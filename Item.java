@@ -19,4 +19,7 @@ public class Item {
         return quantity;
     }
 
+    public String getName() {
+        return name;
+    }
 }

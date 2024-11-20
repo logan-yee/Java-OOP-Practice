@@ -38,14 +38,17 @@ public class Receipt {
         }
     }
 
-    @Override
-    public String toString() {
-        return "Receipt {" + "\n" +
+    public void printReceipt() {
+        System.out.println("Receipt {" + "\n" +
                 "Store: " + store.getName() + "\n" +
-                "Customer: " + customer.getName() + "\n" +
-                "Items: " + items + "\n" +
-                "Total Amount: " + getTotalAmount() + "\n" +
-                "After Tax: " + (getTotalAmount() * taxRate) + "\n" +
-                "}";
+                "Customer: " + customer.getName() + "\n");
+        for (Item item : items) {
+            System.out.printf("%-10s $%-10.2f%n %-10d", item.getName(), item.getPrice(), item.getQuantity());
+        }
+        System.out.println(
+                "\n" + "Total Amount: " + getTotalAmount() + "\n" +
+                        "Tax Included: " + (getTotalAmount() * taxRate) + "\n" +
+                        "}"
+        );
     }
 }
