@@ -41,7 +41,7 @@ public class ReceiptSystem {
                     System.out.println("Enter customer name: ");
                     String customerName = scanner.next();
 
-                    //check if the customer is already exists before add it
+                    //check if the customer already exists before add it
                     Customer customer = findCustomerByName(customers, customerName);
                     if (customer == null) {
                         customer = new Customer(customerName);
@@ -63,6 +63,8 @@ public class ReceiptSystem {
                         Item item = new Item(itemName, price, quantity);
                         receipt.addItem(item);
                     }
+
+
 
                     // Calculate total and add receipt to lists
                     receipt.calculateTotal();
@@ -117,12 +119,24 @@ public class ReceiptSystem {
 
     // Helper methods
     private static Customer findCustomerByName(ArrayList<Customer> customers, String name) {
-            // Implement the customrt search method
+            for (Customer customer : customers) {
+                if (customer.getName().equalsIgnoreCase(name)) {
+                    return customer;
+                }
+            }
         return null;
     }
 
     private static Store findStoreByName(ArrayList<Store> stores, String name) {
-            // Implement the store search method
+            for (Store store : stores) {
+                if (store.getName().equalsIgnoreCase(name)) {
+                    return store;
+                }
+            }
         return null;
+    }
+
+    private static void generateReports(ArrayList<Receipt> receipts) {
+
     }
 }
