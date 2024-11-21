@@ -1,22 +1,6 @@
-public class Payment {
-    private String paymentType;
-    private double paymentAmount;
+public interface Payment {
 
-    //Getters
-    public String getPaymentType() {
-        return paymentType;
-    }
-    public double getPaymentAmount() {
-        return paymentAmount;
-    }
+    String getPaymentMethod();
 
-    //Setters
-    public void setPaymentType(String paymentType) {
-       this.paymentType = paymentType;
-    }
-
-    public void setPaymentAmount(double paymentAmount) {
-        this.paymentAmount = paymentAmount;
-    }
-
+    double calculateChange(double totalAmount);
 }

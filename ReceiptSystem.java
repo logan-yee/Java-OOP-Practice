@@ -75,11 +75,63 @@ public class ReceiptSystem {
                         receipt.addItem(item);
                     }
 
-//                    System.out.println("Enter payment type: ");
-//                    int paymentChoice = scanner.nextInt();
-
-                    // Calculate total and add receipt to lists
+                    // Calculate total
                     receipt.calculateTotal();
+
+                    System.out.println("Payment Type ");
+                    System.out.println("1. Cash");
+                    System.out.println("2. Credit");
+                    System.out.println("3. Debit");
+                    System.out.print("Enter your choice: ");
+                    String paymentChoice = scanner.next();
+
+                    //Error handling
+                    int cleanPaymentChoice = InputCleaner.cleanToIntegers(paymentChoice);
+
+                    switch(cleanPaymentChoice) {
+                        case 1:
+                            //Cash
+                            System.out.println("Total after tax: " + receipt.calculateTax());
+                            System.out.print("Enter amount paid in cash: $");
+                            double cashPaid = scanner.nextDouble();
+
+                            Payment payment = new Cash(cashPaid);
+                            receipt.setPayment(payment);
+                            break;
+                        case 2:
+                            //Credit
+                            System.out.println("Total after tax: " + receipt.calculateTax());
+                            System.out.print("Enter amount paid in credit: $");
+                            double creditPaid = scanner.nextDouble();
+
+                            if (creditPaid != receipt.calculateTax()) {
+                                System.out.print("Error: Credit payments must match the total amount exactly." + "\n");
+                                break;
+                            }
+
+                            Payment creditPayment = new Credit(creditPaid);
+                            receipt.setPayment(creditPayment);
+                            break;
+                        case 3:
+                            // Debit payment
+                            System.out.println("Total after tax: " + receipt.calculateTax());
+                            System.out.print("Enter amount to pay with debit: $");
+                            double debitPaid = scanner.nextDouble();
+
+                            if (debitPaid != receipt.calculateTax()) {
+                                System.out.println("Error: Debit payments must match the total amount exactly." + "\n");
+                                break;
+                            }
+
+                            Payment debitPayment = new Debit(debitPaid);
+                            receipt.setPayment(debitPayment);
+                            break;
+
+                        default:
+                            System.out.println("Invalid payment choice. Please try again.");
+                    }
+
+                    //Add receipt to list
                     receipts.add(receipt);
                     store.addReceipt(receipt);
                     customer.addReceipt(receipt);
@@ -120,8 +172,8 @@ public class ReceiptSystem {
                     break;
 
                 case 3:
-                    // Generate reports
-                    // Implement report generation methods here
+                    // Generate Reports
+
                     break;
 
                 case 4:

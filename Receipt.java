@@ -1,4 +1,5 @@
 import java.util.*;
+import java.math.*;
 
 public class Receipt {
     private double totalAmount;
@@ -7,14 +8,12 @@ public class Receipt {
     private Payment payment;
     private List<Item> items = new ArrayList<>();
 
-    public final double taxRate = 0.13;
+    public static double taxRate = 1.13;
 
-    //Setters and getters
     public double getTotalAmount() {
         return totalAmount;
     }
 
-    //Methods
     public void setStore(Store store) {
         this.store = store;
     }
@@ -38,17 +37,34 @@ public class Receipt {
         }
     }
 
+    public double calculateTax() {
+        BigDecimal bd = new BigDecimal(this.getTotalAmount() * taxRate).setScale(2, RoundingMode.HALF_UP);
+
+        return bd.doubleValue();
+    }
+
     public void printReceipt() {
         System.out.println("Receipt {" + "\n" +
                 "Store: " + store.getName() + "\n" +
                 "Customer: " + customer.getName() + "\n");
+
+        //Formatting to clean up receipt display
         for (Item item : items) {
-            System.out.printf("%-10s $%-10.2f%n %-10d", item.getName(), item.getPrice(), item.getQuantity());
+            System.out.printf("%-8s $%-5.2f %-5d%n", item.getName(), item.getPrice(), item.getQuantity());
         }
+
         System.out.println(
-                "\n" + "Total Amount: " + getTotalAmount() + "\n" +
-                        "Tax Included: " + (getTotalAmount() * taxRate) + "\n" +
-                        "}"
+                "\n" + "Total Amount: $" + getTotalAmount() + "\n" +
+                        "Tax Included: $" + calculateTax() + "\n" +
+                        "Payment Method: " + payment.getPaymentMethod() + "\n"
         );
+
+        //Display change if payment is cash
+        if (payment instanceof Cash) {
+            double change = payment.calculateChange(calculateTax());
+            System.out.println("Change returned: $" + change);
+        }
+
+        System.out.println("}");
     }
 }
