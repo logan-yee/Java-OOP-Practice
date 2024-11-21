@@ -1,4 +1,4 @@
-//Utility class to convert strings to ints
+package main.utils;//Utility class to convert strings to ints
 
 public class InputCleaner {
     public static int cleanToIntegers(String input) {

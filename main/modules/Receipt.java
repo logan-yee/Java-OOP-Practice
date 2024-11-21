@@ -1,3 +1,8 @@
+package main.modules;
+
+import main.payment.Cash;
+import main.payment.Payment;
+
 import java.util.*;
 import java.math.*;
 
@@ -10,10 +15,20 @@ public class Receipt {
 
     public static double taxRate = 1.13;
 
+    //Getters
     public double getTotalAmount() {
         return totalAmount;
     }
 
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public Payment getPayment() {
+        return payment;
+    }
+
+    //Setters
     public void setStore(Store store) {
         this.store = store;
     }
@@ -37,6 +52,7 @@ public class Receipt {
         }
     }
 
+    //Methods
     public double calculateTax() {
         BigDecimal bd = new BigDecimal(this.getTotalAmount() * taxRate).setScale(2, RoundingMode.HALF_UP);
 

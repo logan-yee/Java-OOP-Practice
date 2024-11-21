@@ -1,4 +1,8 @@
-public class Cash implements Payment{
+package main.payment;
+
+import main.modules.Receipt;
+
+public class Cash implements Payment {
     private double cashGiven;
 
     //Constructor

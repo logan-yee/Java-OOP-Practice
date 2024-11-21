@@ -1,11 +1,13 @@
+package main.modules;
+
 import java.util.*;
 
-public class Store {
+public class Customer {
     private String name;
     private List<Receipt> receipts = new ArrayList<>();
 
     //Constructor
-    public Store(String name) {
+    public Customer(String name) {
         this.name = name;
     }
 
@@ -14,15 +16,19 @@ public class Store {
         return name;
     }
 
-    //Add a receipt to the store
-    public void addReceipt (Receipt receipt) {
+    public List<Receipt> getReceipts() {
+        return receipts;
+    }
+
+    //Add receipt to customer
+    public void addReceipt(Receipt receipt) {
         receipts.add(receipt);
     }
 
     //Display receipts
     public void viewReceipts() {
         if (receipts.isEmpty()) {
-            System.out.println("No receipts available");
+            System.out.println("No receipts for customer to display");
         } else {
             System.out.println("Receipts for " + name);
             for (Receipt receipt : receipts) {

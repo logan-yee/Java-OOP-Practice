@@ -1,13 +1,15 @@
-public class Credit implements Payment{
+package main.payment;
+
+public class Debit implements Payment {
     private double amountPaid;
 
     //Constructor
-    public Credit(double amountPaid) {
+    public Debit(double amountPaid) {
         this.amountPaid = amountPaid;
     }
 
     public String getPaymentMethod() {
-        return "Credit";
+        return "Debit";
     }
 
     @Override
