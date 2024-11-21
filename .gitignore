@@ -1,8 +1,10 @@
 # Default ignored files
 /shelf/
 /.idea/workspace.xml
-Logan100833629.iml
+# Logan100833629.iml
 .idea/
 out/
+*.iml
+Logan100833629.iml
 
 
